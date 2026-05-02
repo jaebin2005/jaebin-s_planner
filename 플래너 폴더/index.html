@@ -3,20 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>나의 미니멀 플래너</title>
+    <title>프로페셔널 학습 플래너</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>My Planner</h1>
-        <div class="input-group">
-            <input type="text" id="todo-input" placeholder="오늘 할 일을 입력하세요...">
-            <button id="add-btn">추가</button>
+    <div class="app-container">
+        <!-- 사용자 인증 -->
+        <div class="user-section">
+            <div id="user-login">
+                <input type="text" id="user-name-input" placeholder="이름을 입력하세요">
+                <button id="save-user-btn">로그인</button>
+            </div>
+            <div id="user-welcome" style="display: none;">
+                <span id="display-name" style="font-weight: bold;"></span>님의 플래너
+                <button id="logout-btn">로그아웃</button>
+            </div>
         </div>
-        <ul id="todo-list">
-            <!-- 여기에 할 일이 추가됩니다 -->
-        </ul>
+
+        <!-- 관리 메뉴 -->
+        <div class="quick-menu">
+            <button onclick="toggleModal('book-modal')">📚 교재</button>
+            <button onclick="toggleModal('exam-modal')">🎯 시험</button>
+            <button onclick="toggleModal('cat-modal')">🏷️ 카테고리</button>
+        </div>
+
+        <!-- 날짜 및 추가 버튼 -->
+        <header>
+            <div class="date-navigation">
+                <button id="prev-week" class="nav-btn-double">≪</button>
+                <button id="prev-date" class="nav-btn">＜</button>
+                <div class="date-selector">
+                    <input type="date" id="current-date">
+                </div>
+                <button id="next-date" class="nav-btn">＞</button>
+                <button id="next-week" class="nav-btn-double">≫</button>
+            </div>
+            <button id="open-todo-modal-btn" class="main-add-btn">+ 계획 추가하기</button>
+        </header>
+
+        <!-- 보기 모드 전환 -->
+        <div class="view-controls">
+            <button class="view-btn active" data-view="daily">일간</button>
+            <button class="view-btn" data-view="weekly">주간 리포트</button>
+            <button class="view-btn" data-view="monthly">월간 리포트</button>
+        </div>
+        
+        <!-- 일간 타임바 -->
+        <div id="daily-time-bar-container">
+            <div id="time-bar"></div>
+        </div>
+
+        <!-- 통계 리포트 영역 -->
+        <div id="report-section" style="display: none;">
+            <div id="book-progress-area"></div>
+            <hr>
+            <h3 id="report-title">활동 분석</h3>
+            <div id="category-stats-area"></div>
+        </div>
+
+        <!-- 할 일 리스트 -->
+        <main><ul id="todo-list"></ul></main>
     </div>
+
+    <!-- 모달: 할 일 추가 -->
+    <div id="todo-modal" class="modal">
+        <div class="modal-content">
+            <h2>📝 새로운 계획</h2>
+            <div class="input-field">
+                <label>분류 선택</label>
+                <select id="todo-category-select"></select>
+            </div>
+            <div class="input-field">
+                <label>내용</label>
+                <input type="text" id="todo-title" placeholder="무엇을 할까요?">
+            </div>
+            <div class="book-link-box">
+                <label>📖 교재 연동 (선택)</label>
+                <select id="todo-book-select"></select>
+                <div class="page-row">
+                    <input type="number" id="todo-start-p" placeholder="시작p">
+                    <span>~</span>
+                    <input type="number" id="todo-end-p" placeholder="종료p">
+                </div>
+            </div>
+            <div class="input-field">
+                <label>시간 설정</label>
+                <div class="time-row">
+                    <select id="start-t"></select>시 ~ <select id="end-t"></select>시
+                </div>
+            </div>
+            <div class="modal-buttons">
+                <button onclick="toggleModal('todo-modal')">취소</button>
+                <button id="final-add-btn" class="confirm-btn">추가</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 관리용 모달들 -->
+    <div id="book-modal" class="modal"><div class="modal-content">
+        <h2>📚 교재 등록</h2>
+        <input type="text" id="new-book-name" placeholder="교재 이름">
+        <input type="number" id="new-book-total" placeholder="전체 페이지">
+        <button id="add-book-btn">등록</button>
+        <ul id="modal-book-list" class="mini-list"></ul>
+        <button onclick="toggleModal('book-modal')">닫기</button>
+    </div></div>
+
+    <div id="exam-modal" class="modal"><div class="modal-content">
+        <h2>🎯 시험 일정</h2>
+        <input type="text" id="new-exam-name" placeholder="시험 명">
+        <input type="date" id="new-exam-date">
+        <button id="add-exam-btn">등록</button>
+        <ul id="modal-exam-list" class="mini-list"></ul>
+        <button onclick="toggleModal('exam-modal')">닫기</button>
+    </div></div>
+
+    <div id="cat-modal" class="modal"><div class="modal-content">
+        <h2>🏷️ 카테고리 설정</h2>
+        <input type="text" id="new-cat-name" placeholder="예: 운동, 독서">
+        <button id="add-cat-btn">추가</button>
+        <ul id="modal-cat-list" class="mini-list"></ul>
+        <button onclick="toggleModal('cat-modal')">닫기</button>
+    </div></div>
+
     <script src="script.js"></script>
 </body>
 </html>
