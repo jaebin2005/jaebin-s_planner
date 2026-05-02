@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나의 미니멀 플래너</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>My Planner</h1>
+        <div class="input-group">
+            <input type="text" id="todo-input" placeholder="오늘 할 일을 입력하세요...">
+            <button id="add-btn">추가</button>
+        </div>
+        <ul id="todo-list">
+            <!-- 여기에 할 일이 추가됩니다 -->
+        </ul>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
